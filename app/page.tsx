@@ -5,12 +5,117 @@ import Image from "next/image";
 
 export default function Home() {
   return (
-    <div className="min-h-screen w-full bg-background-dark overflow-hidden font-display relative">
-      {/* Cyberpunk border effect */}
-      <div className="absolute inset-0 bg-cyber-grid opacity-20 cyber-grid pointer-events-none"></div>
+    <div className="min-h-screen w-full bg-background-dark overflow-hidden font-display relative scanlines">
+      {/* Deep Parallax Background Layers */}
+      <div className="absolute inset-0 overflow-hidden">
+        {/* Deep background layer - animated gradient mesh */}
+        <motion.div
+          className="absolute inset-0"
+          animate={{
+            background: [
+              "radial-gradient(circle at 20% 50%, rgba(255,0,128,0.08) 0%, transparent 50%)",
+              "radial-gradient(circle at 80% 50%, rgba(0,255,255,0.08) 0%, transparent 50%)",
+              "radial-gradient(circle at 50% 80%, rgba(255,0,128,0.08) 0%, transparent 50%)",
+              "radial-gradient(circle at 20% 50%, rgba(255,0,128,0.08) 0%, transparent 50%)",
+            ],
+          }}
+          transition={{
+            duration: 15,
+            repeat: Infinity,
+            ease: "linear",
+          }}
+          style={{ zIndex: -4 }}
+        />
+
+        {/* Mid layer - cyber grid */}
+        <div
+          className="absolute inset-0 bg-cyber-grid opacity-15 cyber-grid pointer-events-none"
+          style={{ zIndex: -3 }}
+        />
+
+        {/* Foreground gradient layer */}
+        <div
+          className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,_transparent_0%,_rgba(255,0,128,0.04)_100%)] pointer-events-none"
+          style={{ zIndex: -2 }}
+        />
+      </div>
+
+      {/* Noise/Grain Texture Overlay */}
+      <div
+        className="absolute inset-0 opacity-[0.04] pointer-events-none"
+        style={{
+          backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`,
+          backgroundSize: "200px 200px",
+          zIndex: 1,
+        }}
+      />
+
+      {/* Floating Particles System */}
+      <div
+        className="absolute inset-0 pointer-events-none overflow-hidden"
+        style={{ zIndex: 2 }}
+      >
+        {Array.from({ length: 25 }).map((_, i) => (
+          <motion.div
+            key={i}
+            className="absolute w-1 h-1 bg-primary rounded-full"
+            initial={{
+              x:
+                Math.random() *
+                (typeof window !== "undefined" ? window.innerWidth : 1920),
+              y:
+                Math.random() *
+                (typeof window !== "undefined" ? window.innerHeight : 1080),
+              opacity: Math.random() * 0.5 + 0.2,
+            }}
+            animate={{
+              y: [null, Math.random() * -300 - 100],
+              x: [null, Math.random() * 150 - 75],
+              opacity: [null, 0],
+            }}
+            transition={{
+              duration: Math.random() * 4 + 3,
+              repeat: Infinity,
+              delay: Math.random() * 2,
+              ease: "easeOut",
+            }}
+          />
+        ))}
+      </div>
+
+      {/* Floating Geometric Shapes */}
+      <div
+        className="absolute inset-0 pointer-events-none overflow-hidden"
+        style={{ zIndex: 1 }}
+      >
+        {Array.from({ length: 6 }).map((_, i) => (
+          <motion.div
+            key={`shape-${i}`}
+            className="absolute border border-primary/15"
+            style={{
+              width: Math.random() * 80 + 40,
+              height: Math.random() * 80 + 40,
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+              rotate: Math.random() * 360,
+            }}
+            animate={{
+              y: [0, -40, 0],
+              rotate: [0, 10, 0],
+              opacity: [0.08, 0.2, 0.08],
+            }}
+            transition={{
+              duration: Math.random() * 5 + 4,
+              repeat: Infinity,
+              delay: Math.random() * 3,
+              ease: "easeInOut",
+            }}
+          />
+        ))}
+      </div>
 
       {/* Header - Logo Only */}
-      <header className="relative z-10 flex items-center p-6 md:p-8">
+      <header className="relative z-20 flex items-center p-6 md:p-8">
         <div className="flex items-center gap-3">
           <div className="w-6 h-6 border-2 border-primary"></div>
           <span className="text-white font-mono text-sm md:text-base">
@@ -36,7 +141,10 @@ export default function Home() {
       </div>
 
       {/* Main Content */}
-      <main className="relative z-10 flex flex-col items-center justify-center h-[calc(100vh-120px)] px-4">
+      <main
+        className="relative z-10 flex flex-col items-center justify-center h-[calc(100vh-120px)] px-4"
+        style={{ zIndex: 10 }}
+      >
         {/* Central MATCH Logo Section */}
         <div className="relative flex flex-col items-center">
           {/* Top Label - Hidden on large screens, shown in info labels */}
@@ -61,27 +169,80 @@ export default function Home() {
             <h1
               className="text-7xl md:text-9xl lg:text-[12rem] xl:text-[14rem] 2xl:text-[16rem] font-black text-white tracking-tighter glitch-text relative z-10"
               data-text="MATCH"
+              style={{
+                textShadow: `
+                  0 0 10px rgba(255,0,128,0.6),
+                  0 0 20px rgba(255,0,128,0.4),
+                  0 0 30px rgba(255,0,128,0.3),
+                  0 0 40px rgba(255,0,128,0.2),
+                  0 0 60px rgba(255,0,128,0.1),
+                  0 10px 20px rgba(0,0,0,0.6),
+                  0 20px 40px rgba(0,0,0,0.4),
+                  0 30px 60px rgba(0,0,0,0.2)
+                `,
+              }}
             >
               MATCH
             </h1>
 
-            {/* Glow effect */}
-            <div className="absolute inset-0 bg-primary/20 blur-3xl -z-10"></div>
+            {/* Enhanced Glow effect with multiple layers */}
+            <div className="absolute inset-0 bg-primary/25 blur-3xl -z-10"></div>
+            <div className="absolute inset-0 bg-primary/15 blur-[60px] -z-11"></div>
+            <div className="absolute inset-0 bg-cyan-500/10 blur-[80px] -z-12"></div>
 
-            {/* Scattered fragments */}
-            <div className="absolute -top-4 -left-4 w-2 h-2 bg-primary rounded-full animate-pulse"></div>
-            <div
-              className="absolute -top-8 right-8 w-1 h-1 bg-primary rounded-full animate-pulse"
-              style={{ animationDelay: "0.5s" }}
-            ></div>
-            <div
-              className="absolute bottom-4 -left-8 w-1.5 h-1.5 bg-primary rounded-full animate-pulse"
-              style={{ animationDelay: "1s" }}
-            ></div>
-            <div
-              className="absolute -bottom-4 right-4 w-2 h-2 bg-primary rounded-full animate-pulse"
-              style={{ animationDelay: "1.5s" }}
-            ></div>
+            {/* Enhanced Scattered fragments with glow */}
+            <motion.div
+              className="absolute -top-4 -left-4 w-2 h-2 bg-primary rounded-full"
+              animate={{
+                opacity: [0.3, 1, 0.3],
+                scale: [1, 1.5, 1],
+                boxShadow: [
+                  "0 0 5px rgba(255,0,128,0.5)",
+                  "0 0 15px rgba(255,0,128,0.8)",
+                  "0 0 5px rgba(255,0,128,0.5)",
+                ],
+              }}
+              transition={{ duration: 2, repeat: Infinity }}
+            />
+            <motion.div
+              className="absolute -top-8 right-8 w-1 h-1 bg-primary rounded-full"
+              animate={{
+                opacity: [0.3, 1, 0.3],
+                scale: [1, 1.5, 1],
+                boxShadow: [
+                  "0 0 5px rgba(255,0,128,0.5)",
+                  "0 0 15px rgba(255,0,128,0.8)",
+                  "0 0 5px rgba(255,0,128,0.5)",
+                ],
+              }}
+              transition={{ duration: 2, repeat: Infinity, delay: 0.5 }}
+            />
+            <motion.div
+              className="absolute bottom-4 -left-8 w-1.5 h-1.5 bg-primary rounded-full"
+              animate={{
+                opacity: [0.3, 1, 0.3],
+                scale: [1, 1.5, 1],
+                boxShadow: [
+                  "0 0 5px rgba(255,0,128,0.5)",
+                  "0 0 15px rgba(255,0,128,0.8)",
+                  "0 0 5px rgba(255,0,128,0.5)",
+                ],
+              }}
+              transition={{ duration: 2, repeat: Infinity, delay: 1 }}
+            />
+            <motion.div
+              className="absolute -bottom-4 right-4 w-2 h-2 bg-primary rounded-full"
+              animate={{
+                opacity: [0.3, 1, 0.3],
+                scale: [1, 1.5, 1],
+                boxShadow: [
+                  "0 0 5px rgba(255,0,128,0.5)",
+                  "0 0 15px rgba(255,0,128,0.8)",
+                  "0 0 5px rgba(255,0,128,0.5)",
+                ],
+              }}
+              transition={{ duration: 2, repeat: Infinity, delay: 1.5 }}
+            />
           </motion.div>
 
           {/* Navigation Cards Around MATCH */}
