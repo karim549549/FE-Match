@@ -352,3 +352,56 @@ body {
     @apply bg-background text-foreground;
   }
 }
+
+/* Cyber Frame Animations */
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes scroll-reverse {
+  0% {
+    transform: translateX(-50%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+@keyframes scroll-vertical {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-50%);
+  }
+}
+
+@keyframes scroll-vertical-reverse {
+  0% {
+    transform: translateY(-50%);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+.animate-scroll {
+  animation: scroll 20s linear infinite;
+}
+
+.animate-scroll-reverse {
+  animation: scroll-reverse 20s linear infinite;
+}
+
+.animate-scroll-vertical {
+  animation: scroll-vertical 25s linear infinite;
+}
+
+.animate-scroll-vertical-reverse {
+  animation: scroll-vertical-reverse 25s linear infinite;
+}
