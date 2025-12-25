@@ -19,14 +19,14 @@ export function LoginFormContainer({
 }: LoginFormContainerProps) {
   return (
     <motion.div
-      className="w-full flex items-center justify-center p-6 relative"
+      className="w-full flex items-center justify-center p-3 sm:p-4 md:p-6 relative overflow-x-hidden"
       initial={{ width: "60%" }}
       animate={{ width: isExpanded ? "75%" : "60%" }}
       transition={{ duration: 0.8, ease: "easeInOut" }}
     >
       <div className="absolute inset-0 bg-cyber-grid opacity-20 pointer-events-none lg:hidden cyber-grid"></div>
       <motion.div
-        className="relative w-full max-w-[480px]"
+        className="relative w-full max-w-[480px] px-2 sm:px-0"
         initial={{ opacity: 0, y: 20 }}
         animate={{
           opacity: isExpanded ? 1 : 0.8,

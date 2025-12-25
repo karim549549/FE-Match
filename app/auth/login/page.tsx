@@ -59,7 +59,7 @@ export default function LoginPage() {
   };
 
   return (
-    <>
+    <div className="flex w-full max-w-full overflow-x-hidden min-w-0">
       <LoginBranding isExpanded={isExpanded} />
       <LoginFormContainer
         isExpanded={isExpanded}
@@ -67,6 +67,6 @@ export default function LoginPage() {
         loadingProgress={loadingProgress}
         onSubmit={onSubmit}
       />
-    </>
+    </div>
   );
 }

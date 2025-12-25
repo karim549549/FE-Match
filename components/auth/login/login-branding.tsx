@@ -27,7 +27,7 @@ export function LoginBranding({ isExpanded }: LoginBrandingProps) {
         transition={{ duration: 0.8, ease: "easeInOut" }}
       >
         <motion.div
-          className="w-64 h-64 relative mb-4"
+          className="w-48 h-48 sm:w-56 sm:h-56 md:w-64 md:h-64 relative mb-4"
           animate={{ scale: isExpanded ? 0.65 : 0.7 }}
           transition={{ duration: 0.8, ease: "easeInOut" }}
         >
@@ -42,15 +42,15 @@ export function LoginBranding({ isExpanded }: LoginBrandingProps) {
         </motion.div>
         <div className="space-y-2">
           <motion.h1
-            className="text-white font-black tracking-tighter leading-none whitespace-nowrap"
-            animate={{ fontSize: isExpanded ? "2.5rem" : "2rem" }}
+            className="text-white font-black tracking-tighter leading-none whitespace-nowrap text-2xl sm:text-3xl md:text-4xl"
+            animate={{ fontSize: isExpanded ? "clamp(1.5rem, 2.5vw, 2.5rem)" : "clamp(1.25rem, 2vw, 2rem)" }}
             transition={{ duration: 0.8, ease: "easeInOut" }}
           >
             MATCH
           </motion.h1>
           <motion.p
-            className="text-primary font-mono tracking-[0.2em] font-bold uppercase whitespace-nowrap"
-            animate={{ fontSize: isExpanded ? "1rem" : "0.875rem" }}
+            className="text-primary font-mono tracking-[0.2em] font-bold uppercase whitespace-nowrap text-xs sm:text-sm"
+            animate={{ fontSize: isExpanded ? "clamp(0.75rem, 1vw, 1rem)" : "clamp(0.625rem, 0.875vw, 0.875rem)" }}
             transition={{ duration: 0.8, ease: "easeInOut" }}
           >
             The Realm of Loot.

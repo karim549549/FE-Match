@@ -70,7 +70,7 @@ export function LoginForm({
   };
 
   return (
-    <div className="bg-surface-dark border border-primary/50 shadow-[0_0_30px_rgba(255,0,128,0.15)] rounded-sm p-8 md:p-12 relative overflow-hidden backdrop-blur-sm">
+    <div className="bg-surface-dark border border-primary/50 shadow-[0_0_30px_rgba(255,0,128,0.15)] rounded-sm p-4 sm:p-6 md:p-8 lg:p-12 relative overflow-hidden backdrop-blur-sm">
       <div className="absolute top-0 left-0 right-0 h-[2px] bg-primary shadow-[0_0_10px_#ff0080]"></div>
       <div className="absolute top-0 left-0 w-4 h-4 border-l-2 border-t-2 border-primary"></div>
       <div className="absolute top-0 right-0 w-4 h-4 border-r-2 border-t-2 border-primary"></div>
@@ -79,7 +79,7 @@ export function LoginForm({
 
       <div className="mb-10 text-center">
         <h2
-          className="text-3xl md:text-4xl font-bold text-white tracking-tight glitch-text"
+          className="text-2xl sm:text-3xl md:text-4xl font-bold text-white tracking-tight glitch-text"
           data-text="ACCESS GRANTED"
         >
           ACCESS GRANTED
