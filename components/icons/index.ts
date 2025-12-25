@@ -1,0 +1,12 @@
+export { EmailIcon } from "./email-icon";
+export { LockIcon } from "./lock-icon";
+export { LoginIcon } from "./login-icon";
+export { GoogleIcon } from "./google-icon";
+export { AppleIcon } from "./apple-icon";
+export { TwitterIcon } from "./twitter-icon";
+export { DiscordIcon } from "./discord-icon";
+export { InstagramIcon } from "./instagram-icon";
+export { ArrowLeftIcon } from "./arrow-left-icon";
+export { PlayIcon } from "./play-icon";
+export { ShieldKeyholeIcon } from "./shield-keyhole-icon";
+export { BackspaceIcon } from "./backspace-icon";
