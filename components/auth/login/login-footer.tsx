@@ -78,7 +78,7 @@ export function LoginFooter() {
 
   return (
     <footer
-      className="absolute bottom-0 left-0 right-0 p-4 md:p-6 bg-background-dark/50 backdrop-blur-sm"
+      className="w-full p-4 md:p-6 bg-background-dark/50 backdrop-blur-sm flex-shrink-0"
       style={{ borderTop: "1px solid rgba(0, 255, 255, 0.2)" }}
     >
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">

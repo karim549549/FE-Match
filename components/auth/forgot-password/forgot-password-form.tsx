@@ -169,9 +169,9 @@ export function ForgotPasswordForm() {
       setIsCooldown(true);
       setCooldownTime(cooldownDelay);
 
-      // Redirect to OTP page after a short delay
+      // Redirect to OTP page after a short delay with source parameter
       setTimeout(() => {
-        router.push("/auth/otp");
+        router.push("/auth/otp?from=forgot-password");
       }, 1500);
     } catch (error) {
       console.error("Password recovery error:", error);

@@ -5,7 +5,7 @@ import { TwitterIcon, DiscordIcon, InstagramIcon } from "@/components/icons";
 
 export function LoginNavbar() {
   return (
-    <nav className="absolute top-0 left-0 right-0 p-4 md:p-6 bg-background-dark/50 backdrop-blur-sm z-10 border-b border-gray-800">
+    <nav className="w-full p-4 md:p-6 bg-background-dark/50 backdrop-blur-sm border-b border-gray-800 flex-shrink-0">
       <div className="max-w-7xl mx-auto flex justify-end">
         <div className="flex items-center gap-3">
           <Link

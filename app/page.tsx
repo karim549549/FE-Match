@@ -1,9 +1,40 @@
 "use client";
 
 import { motion } from "framer-motion";
-import Image from "next/image";
+import { useState } from "react";
+import { Navbar } from "@/components/navbar";
 
 export default function Home() {
+  // Generate random values for particles using useState with lazy initialization
+  const [particles] = useState(() => {
+    return Array.from({ length: 25 }).map(() => {
+      const width = typeof window !== "undefined" ? window.innerWidth : 1920;
+      const height = typeof window !== "undefined" ? window.innerHeight : 1080;
+      return {
+        initialX: Math.random() * width,
+        initialY: Math.random() * height,
+        initialOpacity: Math.random() * 0.5 + 0.2,
+        animateY: Math.random() * -300 - 100,
+        animateX: Math.random() * 150 - 75,
+        duration: Math.random() * 4 + 3,
+        delay: Math.random() * 2,
+      };
+    });
+  });
+
+  // Generate random values for shapes using useState with lazy initialization
+  const [shapes] = useState(() => {
+    return Array.from({ length: 6 }).map(() => ({
+      width: Math.random() * 80 + 40,
+      height: Math.random() * 80 + 40,
+      left: `${Math.random() * 100}%`,
+      top: `${Math.random() * 100}%`,
+      rotate: Math.random() * 360,
+      duration: Math.random() * 5 + 4,
+      delay: Math.random() * 3,
+    }));
+  });
+
   return (
     <div className="min-h-screen w-full bg-background-dark overflow-hidden font-display relative scanlines">
       {/* Deep Parallax Background Layers */}
@@ -55,28 +86,24 @@ export default function Home() {
         className="absolute inset-0 pointer-events-none overflow-hidden"
         style={{ zIndex: 2 }}
       >
-        {Array.from({ length: 25 }).map((_, i) => (
+        {particles.map((particle, i) => (
           <motion.div
             key={i}
             className="absolute w-1 h-1 bg-primary rounded-full"
             initial={{
-              x:
-                Math.random() *
-                (typeof window !== "undefined" ? window.innerWidth : 1920),
-              y:
-                Math.random() *
-                (typeof window !== "undefined" ? window.innerHeight : 1080),
-              opacity: Math.random() * 0.5 + 0.2,
+              x: particle.initialX,
+              y: particle.initialY,
+              opacity: particle.initialOpacity,
             }}
             animate={{
-              y: [null, Math.random() * -300 - 100],
-              x: [null, Math.random() * 150 - 75],
+              y: [null, particle.animateY],
+              x: [null, particle.animateX],
               opacity: [null, 0],
             }}
             transition={{
-              duration: Math.random() * 4 + 3,
+              duration: particle.duration,
               repeat: Infinity,
-              delay: Math.random() * 2,
+              delay: particle.delay,
               ease: "easeOut",
             }}
           />
@@ -88,16 +115,16 @@ export default function Home() {
         className="absolute inset-0 pointer-events-none overflow-hidden"
         style={{ zIndex: 1 }}
       >
-        {Array.from({ length: 6 }).map((_, i) => (
+        {shapes.map((shape, i) => (
           <motion.div
             key={`shape-${i}`}
             className="absolute border border-primary/15"
             style={{
-              width: Math.random() * 80 + 40,
-              height: Math.random() * 80 + 40,
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-              rotate: Math.random() * 360,
+              width: shape.width,
+              height: shape.height,
+              left: shape.left,
+              top: shape.top,
+              rotate: shape.rotate,
             }}
             animate={{
               y: [0, -40, 0],
@@ -105,24 +132,17 @@ export default function Home() {
               opacity: [0.08, 0.2, 0.08],
             }}
             transition={{
-              duration: Math.random() * 5 + 4,
+              duration: shape.duration,
               repeat: Infinity,
-              delay: Math.random() * 3,
+              delay: shape.delay,
               ease: "easeInOut",
             }}
           />
         ))}
       </div>
 
-      {/* Header - Logo Only */}
-      <header className="relative z-20 flex items-center p-6 md:p-8">
-        <div className="flex items-center gap-3">
-          <div className="w-6 h-6 border-2 border-primary"></div>
-          <span className="text-white font-mono text-sm md:text-base">
-            PINK SWORDS
-          </span>
-        </div>
-      </header>
+      {/* Navbar */}
+      <Navbar />
 
       {/* Background MATCH Text for Depth */}
       <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-0">

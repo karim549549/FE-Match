@@ -1,11 +1,13 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import type { LoginFormData } from "@/services/schema/login.validation.schema";
 import { LoginBranding } from "@/components/auth/login/login-branding";
 import { LoginFormContainer } from "@/components/auth/login/login-form-container";
 
 export default function LoginPage() {
+  const router = useRouter();
   const [isExpanded, setIsExpanded] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [loadingProgress, setLoadingProgress] = useState(0);
@@ -45,8 +47,19 @@ export default function LoginPage() {
       setLoadingProgress(100);
       await new Promise((resolve) => setTimeout(resolve, 300));
 
-      // await login(data.email, data.password);
-      // router.push('/dashboard'); // Uncomment when ready
+      // TODO: Get user data from backend response
+      // const userData = await login(data.email, data.password);
+      // const isProfileComplete = userData.profileCompleted;
+
+      // Simulate user data response
+      const isProfileComplete = false; // This should come from backend
+
+      // Redirect based on profile completion status
+      if (isProfileComplete) {
+        router.push("/");
+      } else {
+        router.push("/profile/complete");
+      }
     } catch (error) {
       console.error("Login error:", error);
       setLoadingProgress(0);

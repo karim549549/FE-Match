@@ -1,4 +1,6 @@
 export { EmailIcon } from "./email-icon";
+export { EyeIcon } from "./eye-icon";
+export { EyeOffIcon } from "./eye-off-icon";
 export { LockIcon } from "./lock-icon";
 export { LoginIcon } from "./login-icon";
 export { GoogleIcon } from "./google-icon";

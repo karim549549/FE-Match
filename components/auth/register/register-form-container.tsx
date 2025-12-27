@@ -1,32 +1,50 @@
 "use client";
 
+import { motion } from "framer-motion";
+import { RegisterForm } from "./register-form";
+import type { RegisterEmailFormData } from "@/services/schema/register.validation.schema";
+
 interface RegisterFormContainerProps {
   isExpanded: boolean;
+  isLoading: boolean;
+  loadingProgress: number;
+  onSubmit: (data: RegisterEmailFormData) => Promise<void>;
 }
 
-export function RegisterFormContainer({}: RegisterFormContainerProps) {
+export function RegisterFormContainer({
+  isExpanded,
+  isLoading,
+  loadingProgress,
+  onSubmit,
+}: RegisterFormContainerProps) {
   return (
-    <div className="w-3/4 flex items-center justify-center p-6 relative">
+    <motion.div
+      className="w-full flex items-center justify-center p-3 sm:p-4 md:p-6 relative overflow-x-hidden"
+      initial={{ width: "60%" }}
+      animate={{ width: isExpanded ? "75%" : "60%" }}
+      transition={{ duration: 0.8, ease: "easeInOut" }}
+    >
       <div className="absolute inset-0 bg-cyber-grid opacity-20 pointer-events-none lg:hidden cyber-grid"></div>
-      <div className="relative w-full max-w-[480px]">
-        {/* Form content will be added here later */}
-        <div className="bg-surface-dark border border-primary/50 shadow-[0_0_30px_rgba(255,0,128,0.15)] rounded-sm p-8 md:p-12 relative overflow-hidden backdrop-blur-sm">
-          <div className="absolute top-0 left-0 right-0 h-[2px] bg-primary shadow-[0_0_10px_#ff0080]"></div>
-          <div className="absolute top-0 left-0 w-4 h-4 border-l-2 border-t-2 border-primary"></div>
-          <div className="absolute top-0 right-0 w-4 h-4 border-r-2 border-t-2 border-primary"></div>
-          <div className="absolute bottom-0 left-0 w-4 h-4 border-l-2 border-b-2 border-primary"></div>
-          <div className="absolute bottom-0 right-0 w-4 h-4 border-r-2 border-b-2 border-primary"></div>
-
-          <div className="text-center">
-            <h2 className="text-xl font-mono text-primary mb-4">
-              &lt;REGISTER_FORM /&gt;
-            </h2>
-            <p className="text-sm font-mono text-gray-400">
-              Form content coming soon...
-            </p>
-          </div>
+      <motion.div
+        className="relative w-full max-w-[480px] px-2 sm:px-0"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{
+          opacity: isExpanded ? 1 : 0.8,
+          y: isExpanded ? 0 : 20,
+        }}
+        transition={{ duration: 0.8, delay: isExpanded ? 0.2 : 0 }}
+      >
+        <RegisterForm
+          isLoading={isLoading}
+          loadingProgress={loadingProgress}
+          onSubmit={onSubmit}
+        />
+        <div className="mt-8 text-center opacity-40 hover:opacity-100 transition-opacity">
+          <p className="text-[10px] text-white font-mono uppercase tracking-[0.2em]">
+            Secure System v9.0 // Encrypted
+          </p>
         </div>
-      </div>
-    </div>
+      </motion.div>
+    </motion.div>
   );
 }

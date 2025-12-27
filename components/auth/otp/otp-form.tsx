@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { ArrowLeftIcon } from "@/components/icons";
 import {
   otpSchema,
@@ -20,6 +20,8 @@ const OTP_EXPIRY_TIME = 300; // 5 minutes in seconds
 
 export function OtpForm() {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const source = searchParams.get("from"); // "register" or "forgot-password"
   const [otp, setOtp] = useState(["", "", "", "", "", ""]);
   const [timeRemaining, setTimeRemaining] = useState(OTP_EXPIRY_TIME);
   const [isExpired, setIsExpired] = useState(false);
@@ -128,7 +130,14 @@ export function OtpForm() {
       setLoadingProgress(100);
       await new Promise((resolve) => setTimeout(resolve, 300));
 
-      // router.push('/auth/reset-password'); // Uncomment when ready
+      // Redirect based on source
+      if (source === "register") {
+        // Redirect to password setup page after OTP verification for registration
+        router.push("/auth/setup-password");
+      } else {
+        // For forgot password, also redirect to setup password page to reset password
+        router.push("/auth/setup-password?from=forgot-password");
+      }
     } catch (error) {
       console.error("OTP verification error:", error);
       setLoadingProgress(0);
@@ -139,7 +148,7 @@ export function OtpForm() {
     }
   };
 
-  const handleResendCode = (e: React.MouseEvent<HTMLAnchorElement>) => {
+  const handleResendCode = async (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
 
     const action: ScoreAction = "RESEND_CODE";
@@ -160,14 +169,17 @@ export function OtpForm() {
       addToast(points);
     }
 
+    // TODO: Add resend OTP API call here
+    console.log("Resending OTP code...");
+
     // Reset timer and OTP
     setTimeRemaining(OTP_EXPIRY_TIME);
     setIsExpired(false);
     setOtp(["", "", "", "", "", ""]);
     inputRefs.current[0]?.focus();
 
-    // Navigate back to forgot password
-    router.push("/auth/forgot-password");
+    // Don't redirect - just resend the code and stay on OTP page
+    // The code will be resent via API call above
   };
 
   return (

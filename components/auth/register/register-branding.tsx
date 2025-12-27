@@ -34,7 +34,7 @@ const DECRYPTED_BULLETS = [
 const TYPEWRITER_DELAY = 50; // ms per character
 const BULLET_DELAY = 800; // ms between bullets
 
-export function RegisterBranding({}: RegisterBrandingProps) {
+export function RegisterBranding({ isExpanded }: RegisterBrandingProps) {
   const [currentBulletIndex, setCurrentBulletIndex] = useState(0);
   const [currentBulletText, setCurrentBulletText] = useState("");
   const [isTranslated, setIsTranslated] = useState(false);
@@ -169,7 +169,12 @@ export function RegisterBranding({}: RegisterBrandingProps) {
   };
 
   return (
-    <div className="hidden lg:flex relative bg-background-dark border-r border-[#1a1a1a] flex-col w-1/4 p-12 overflow-hidden">
+    <motion.div
+      className="hidden lg:flex relative bg-background-dark border-r border-[#1a1a1a] flex-col items-center justify-center p-12 overflow-hidden"
+      initial={{ width: "40%" }}
+      animate={{ width: isExpanded ? "25%" : "40%" }}
+      transition={{ duration: 0.8, ease: "easeInOut" }}
+    >
       <div className="absolute inset-0 bg-cyber-grid opacity-30 pointer-events-none cyber-grid"></div>
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-primary/5 via-transparent to-transparent opacity-40"></div>
 
@@ -274,10 +279,14 @@ export function RegisterBranding({}: RegisterBrandingProps) {
         </div>
       </div>
 
-      <div className="absolute bottom-10 left-10 font-mono text-xs text-gray-600 flex gap-4">
+      <motion.div
+        className="absolute bottom-10 left-10 font-mono text-xs text-gray-600 flex gap-4"
+        animate={{ opacity: isExpanded ? 0.5 : 1 }}
+        transition={{ duration: 0.8, ease: "easeInOut" }}
+      >
         <span>SYS.VER.2.0.4</span>
         <span>{/* SECURE_CONNECTION */}</span>
-      </div>
-    </div>
+      </motion.div>
+    </motion.div>
   );
 }
